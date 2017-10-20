@@ -1,1 +1,4 @@
 # DCW
+
+VS2017
+MySQL
