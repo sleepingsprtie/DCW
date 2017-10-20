@@ -281,7 +281,9 @@ namespace DCW
                     //Replace(wordDoc, "«date»", Convert.ToString(reader1["Ver_Datum"]).Substring(0,10));
                     Replace(wordDoc, "«date»", DateTime.Now.ToString("yyyy/MM/dd"));
                     //*** NOTICE: Daten_Rechnungsnummer 这个对应数据库的哪个栏位？
-                    Replace(wordDoc, "«Daten_Rechnungsnummer»", (row["Daten_Rechnungsnummer"] as string) ?? "");
+                    //Replace(wordDoc, "«Daten_Rechnungsnummer»", (row["Daten_Rechnungsnummer"] as string) ?? "");
+                    Replace(wordDoc, "«Daten_Rechnungsnummer»", "«Daten_Rechnungsnummer»");
+
 
                     if ((i + 1) < dt.Rows.Count)
                     {
