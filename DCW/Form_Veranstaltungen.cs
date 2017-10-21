@@ -249,56 +249,14 @@ namespace DCW
 
         private void btn_Rechnungen_GmbH_Click(object sender, EventArgs e)
         {
-
             try
             {
-                DataTable dt=DBHelper.CreateRechnungGmbH(Convert.ToInt32(this.Ver_lfd.Text));
+                string[] columnNameList = { "Daten_Firma1", "Daten_Firma2", "Daten_Tit_Vor_AP", "Daten_Nachname", "Daten_Strasse", "Daten_PLZ", "Daten_Ort", "Daten_Mitgliedsnummer" };
+                //*** NOTICE: Daten_Rechnungsnummer 这个对应数据库的哪个栏位？
+                //Replace(doc, "«Daten_Rechnungsnummer»", (row["Daten_Rechnungsnummer"] as string) ?? "");
+                DataTable dt =DBHelper.CreateRechnung(Convert.ToInt32(this.Ver_lfd.Text),columnNameList);
+                DBHelper.CreatePagesWord(Application.StartupPath + "\\Rechnung_Veranstaltung_GmbH.doc", dt, columnNameList,progressBar2);
 
-                Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
-                Microsoft.Office.Interop.Word.Document wordDoc = word.Documents.Open(Application.StartupPath + "\\Rechnung_Veranstaltung_GmbH.doc");//打开 Word 工作簿 
-                
-                wordDoc.ActiveWindow.Selection.WholeStory();//全选
-                wordDoc.ActiveWindow.Selection.Cut();//剪切
-
-                progressBar2.Minimum = 0;
-                progressBar2.Maximum = dt.Rows.Count - 1;
-                progressBar2.Value = 0;
-
-                for (int i=0;i<dt.Rows.Count;i++)
-                {
-                    
-                    wordDoc.ActiveWindow.Selection.Paste();//黏贴
-
-                    DataRow row = dt.Rows[i];
-                    Replace(wordDoc, "«Daten_Firma1»", (row["Daten_Firma1"] as string)??"");
-                    Replace(wordDoc, "«Daten_Firma2»", (row["Daten_Firma2"] as string) ?? "");
-                    Replace(wordDoc, "«Daten_Tit_Vor_AP»", (row["Daten_Tit_Vor_AP"] as string) ?? "");
-                    Replace(wordDoc, "«Daten_Nachname»", (row["Daten_Nachname"] as string) ?? "");
-                    Replace(wordDoc, "«Daten_Strasse»", (row["Daten_Strasse"] as string) ?? "");
-                    Replace(wordDoc, "«Daten_PLZ»", (row["Daten_PLZ"] as string) ?? "");
-                    Replace(wordDoc, "«Daten_Ort»", (row["Daten_Ort"] as string) ?? "");
-                    Replace(wordDoc, "«Daten_Mitgliedsnummer»", (row["Daten_Mitgliedsnummer"] as string) ?? "");
-                    //Replace(wordDoc, "«date»", Convert.ToString(reader1["Ver_Datum"]).Substring(0,10));
-                    Replace(wordDoc, "«date»", DateTime.Now.ToString("yyyy/MM/dd"));
-                    //*** NOTICE: Daten_Rechnungsnummer 这个对应数据库的哪个栏位？
-                    //Replace(wordDoc, "«Daten_Rechnungsnummer»", (row["Daten_Rechnungsnummer"] as string) ?? "");
-                    Replace(wordDoc, "«Daten_Rechnungsnummer»", "«Daten_Rechnungsnummer»");
-
-
-                    if ((i + 1) < dt.Rows.Count)
-                    {
-                        Microsoft.Office.Interop.Word.Section mySec = wordDoc.Sections.Add();//文档末尾下一页插入一个分节符
-
-                        //光标移动到文档末端
-                        object dummy = System.Reflection.Missing.Value;
-                        object what = Microsoft.Office.Interop.Word.WdGoToItem.wdGoToLine;
-                        object which = Microsoft.Office.Interop.Word.WdGoToDirection.wdGoToLast;
-                        object count = 100;
-                        word.Selection.GoTo(ref what, ref which, ref count, ref dummy);
-                    }
-                    progressBar2.Value = i;
-                }
-                word.Visible = true; //使 Word 可视
             }
             catch (Exception ex)
             {
@@ -310,117 +268,16 @@ namespace DCW
         {
             try
             {
-                DataTable dt = DBHelper.CreateRechnungGmbH(Convert.ToInt32(this.Ver_lfd.Text));
+                //*** NOTICE: Daten_Rechnungsnummer 这个对应数据库的哪个栏位？
+                // Replace(wordDoc, "«Daten_Rechnungsnummer»", "");          
+                //*** NOTICE: Daten_Rechnungsnummer 这个对应数据库的哪个栏位？
+                //Replace(doc, "«Daten_Rechnungsnummer»", (row["Daten_Rechnungsnummer"] as string) ?? "");
+                string[] columnNameList = { "Daten_Firma1", "Daten_Firma2", "Daten_Strasse", "Daten_PLZ", "Daten_Ort", "Daten_Mitgliedsnummer", "Daten_Tit_Vor_AP", "Daten_Nachname","Teil_Gesamtbetrag" };
+                
+                DataTable dt = DBHelper.CreateRechnung(Convert.ToInt32(this.Ver_lfd.Text), columnNameList);
+                DBHelper.CreatePagesWord(Application.StartupPath + "\\Rechnung_Veranstaltung_Verein.doc", dt, columnNameList,progressBar2);
 
-                Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
-                Microsoft.Office.Interop.Word.Document wordDoc = word.Documents.Open(Application.StartupPath + "\\Rechnung_Veranstaltung_Verein.doc");//打开 Word 工作簿 
-
-                wordDoc.ActiveWindow.Selection.WholeStory();//全选
-                wordDoc.ActiveWindow.Selection.Cut();//剪切
-
-                progressBar2.Minimum = 0;
-                progressBar2.Maximum = dt.Rows.Count - 1;
-                progressBar2.Value = 0;
-
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-
-                    wordDoc.ActiveWindow.Selection.Paste();//黏贴
-
-                    DataRow row = dt.Rows[i];
-                   
-                    Replace(wordDoc, "«Daten_Firma1»", (row["Daten_Firma1"] as string) ?? "");
-                    Replace(wordDoc, "«Daten_Firma2»", (row["Daten_Firma2"] as string) ?? "");
-                    Replace(wordDoc, "«Daten_Strasse»", (row["Daten_Strasse"] as string) ?? "");
-                    Replace(wordDoc, "«Daten_PLZ»", (row["Daten_PLZ"] as string) ?? "");
-                    Replace(wordDoc, "«Daten_Ort»", (row["Daten_Ort"] as string) ?? "");
-                    Replace(wordDoc, "«Daten_Mitgliedsnummer»", (row["Daten_Mitgliedsnummer"] as string) ?? "");
-
-                    //*** NOTICE: Daten_Rechnungsnummer 这个对应数据库的哪个栏位？
-                    Replace(wordDoc, "«Daten_Rechnungsnummer»", "");
-                    Replace(wordDoc, "«date»", DateTime.Now.ToString("yyyy/MM/dd"));
-                    Replace(wordDoc, "«Daten_Tit_Vor_AP»", (row["Daten_Tit_Vor_AP"] as string) ?? "");
-                    Replace(wordDoc, "«Daten_Nachname»", (row["Daten_Nachname"] as string) ?? "");
-                    double Teil_Gesamtbetrag = (row["Teil_Gesamtbetrag"] as double?)??0;
-                    Replace(wordDoc, "«Teil_Gesamtbetrag»", Teil_Gesamtbetrag + "");
-                    //*** NOTICE: Daten_Mwst 这个对应数据库的哪个栏位？
-                    int Daten_Mwst = (int)(Teil_Gesamtbetrag * 0.07);
-                    Replace(wordDoc, "«Daten_Mwst»", Daten_Mwst + "");
-                    //*** NOTICE: Daten_Gesamtbetrag 这个对应数据库的哪个栏位？
-                    Replace(wordDoc, "«Daten_Gesamtbetrag»", "" + (Teil_Gesamtbetrag + Daten_Mwst));
-
-                    if ((i + 1) < dt.Rows.Count)
-                    {
-                        Microsoft.Office.Interop.Word.Section mySec = wordDoc.Sections.Add();//文档末尾下一页插入一个分节符
-
-                        //光标移动到文档末端
-                        object dummy = System.Reflection.Missing.Value;
-                        object what = Microsoft.Office.Interop.Word.WdGoToItem.wdGoToLine;
-                        object which = Microsoft.Office.Interop.Word.WdGoToDirection.wdGoToLast;
-                        object count = 100;
-                        word.Selection.GoTo(ref what, ref which, ref count, ref dummy);
-                    }
-                    progressBar2.Value = i;
-                }
-                word.Visible = true; //使 Word 可视
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Close Rechnung_Veranstaltung_Verein.doc First!" + ex.Message);
-            }
-            try
-            {
-                //*** 取得参加活动的人员资料
-                string strSQL = "SELECT * FROM Veranstaltungen, TeilnehmerVeranstaltung, Daten " +
-                                "WHERE Veranstaltungen.Ver_lfd = TeilnehmerVeranstaltung.Teil_Veranstaltunglfd " +
-                                "AND TeilnehmerVeranstaltung.Teil_TeilnehmerMgl = Daten.Daten_Mitgliedsnummer " +
-                                "AND Veranstaltungen.Ver_lfd = " + Convert.ToInt32(this.Ver_lfd.Text) + " " +
-                                "AND TeilnehmerVeranstaltung.Teil_Rechtzeitig_Abmeldung = 0 ORDER BY Daten.Daten_Nachname ; ";
-
-                this.veranstaltungenTableAdapter.Connection.Open();
-
-                List<Dictionary<string, string>> list = new List<Dictionary<string, string>>();
-                Dictionary<string, string> d = new Dictionary<string, string>();
-                using (MySql.Data.MySqlClient.MySqlCommand selectData = new MySql.Data.MySqlClient.MySqlCommand(strSQL, this.veranstaltungenTableAdapter.Connection))
-                {
-                    using (MySql.Data.MySqlClient.MySqlDataReader reader1 = selectData.ExecuteReader())
-                    {
-                        if (reader1.HasRows)
-                        {
-                            Microsoft.Office.Interop.Word.Application word = new Microsoft.Office.Interop.Word.Application();
-                            Microsoft.Office.Interop.Word.Document wordDoc = word.Documents.Open(Application.StartupPath + "\\Rechnung_Veranstaltung_Verein.doc");//打开 Word 工作簿 
-                            word.Visible = true; //使 Word 可视
-                            while (reader1.Read())
-                            {
-                                Replace(wordDoc, "«Daten_Firma1»", Convert.ToString(reader1["Daten_Firma1"]));
-                                Replace(wordDoc, "«Daten_Firma2»", Convert.ToString(reader1["Daten_Firma2"]));
-                                Replace(wordDoc, "«Daten_Strasse»", Convert.ToString(reader1["Daten_Strasse"]));
-                                Replace(wordDoc, "«Daten_PLZ»", Convert.ToString(reader1["Daten_PLZ"]));
-                                Replace(wordDoc, "«Daten_Ort»", Convert.ToString(reader1["Daten_Ort"]));
-                                Replace(wordDoc, "«Daten_Mitgliedsnummer»", Convert.ToString(reader1["Daten_Mitgliedsnummer"]));
-
-                                //*** NOTICE: Daten_Rechnungsnummer 这个对应数据库的哪个栏位？
-                                Replace(wordDoc, "«Daten_Rechnungsnummer»", "");
-                                Replace(wordDoc, "«date»", Convert.ToString(reader1["Ver_Datum"]).Substring(0,10));
-                                Replace(wordDoc, "«Daten_Tit_Vor_AP»", Convert.ToString(reader1["Daten_Tit_Vor_AP"]));
-                                Replace(wordDoc, "«Daten_Nachname»", Convert.ToString(reader1["Daten_Nachname"]));
-                                double Teil_Gesamtbetrag = Convert.ToDouble(reader1["Teil_Gesamtbetrag"]);
-                                Replace(wordDoc, "«Teil_Gesamtbetrag»", Teil_Gesamtbetrag + "");
-                                //*** NOTICE: Daten_Mwst 这个对应数据库的哪个栏位？
-                                int Daten_Mwst = (int)(Teil_Gesamtbetrag * 0.07);
-                                Replace(wordDoc, "«Daten_Mwst»", Daten_Mwst + "");
-                                //*** NOTICE: Daten_Gesamtbetrag 这个对应数据库的哪个栏位？
-                                Replace(wordDoc, "«Daten_Gesamtbetrag»", "" + (Teil_Gesamtbetrag + Daten_Mwst));
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("No info!");
-                        }
-                    }
-                }
-
-                this.veranstaltungenTableAdapter.Connection.Close();
+               
             }
             catch (Exception ex)
             {
