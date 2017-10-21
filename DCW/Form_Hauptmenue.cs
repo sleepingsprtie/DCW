@@ -88,7 +88,5 @@ namespace DCW
             this.Hide();
             this.fAdministraor.Show();
         }
-
-        
     }
 }
