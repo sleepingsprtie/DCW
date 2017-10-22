@@ -182,7 +182,7 @@ namespace DCW
         {
             try
             {
-                using (DataTable dt = DBHelper.CreateNamePlate(Convert.ToInt32(this.Ver_lfd.Text)))
+                using (DataTable dt = DCWHelper.CreateNamePlate(Convert.ToInt32(this.Ver_lfd.Text)))
                 {
                     if (dt == null)
                         return;
@@ -261,8 +261,8 @@ namespace DCW
                 string[] columnNameList = { "Daten_Firma1", "Daten_Firma2", "Daten_Tit_Vor_AP", "Daten_Nachname", "Daten_Strasse", "Daten_PLZ", "Daten_Ort", "Daten_Mitgliedsnummer" };
                 //*** NOTICE: Daten_Rechnungsnummer 这个对应数据库的哪个栏位？
                 //Replace(doc, "«Daten_Rechnungsnummer»", (row["Daten_Rechnungsnummer"] as string) ?? "");
-                DataTable dt =DBHelper.CreateRechnung(Convert.ToInt32(this.Ver_lfd.Text),columnNameList);
-                DBHelper.CreatePagesWord(Application.StartupPath + "\\Rechnung_Veranstaltung_GmbH.doc", dt, columnNameList,progressBar2);
+                DataTable dt =DCWHelper.CreateRechnung(Convert.ToInt32(this.Ver_lfd.Text),columnNameList);
+                DCWHelper.CreatePagesWord(Application.StartupPath + "\\Rechnung_Veranstaltung_GmbH.doc", dt, columnNameList,progressBar2);
 
             }
             catch (Exception ex)
@@ -281,8 +281,8 @@ namespace DCW
                 //Replace(doc, "«Daten_Rechnungsnummer»", (row["Daten_Rechnungsnummer"] as string) ?? "");
                 string[] columnNameList = { "Daten_Firma1", "Daten_Firma2", "Daten_Strasse", "Daten_PLZ", "Daten_Ort", "Daten_Mitgliedsnummer", "Daten_Tit_Vor_AP", "Daten_Nachname","Teil_Gesamtbetrag" };
                 
-                DataTable dt = DBHelper.CreateRechnung(Convert.ToInt32(this.Ver_lfd.Text), columnNameList);
-                DBHelper.CreatePagesWord(Application.StartupPath + "\\Rechnung_Veranstaltung_Verein.doc", dt, columnNameList,progressBar2);
+                DataTable dt = DCWHelper.CreateRechnung(Convert.ToInt32(this.Ver_lfd.Text), columnNameList);
+                DCWHelper.CreatePagesWord(Application.StartupPath + "\\Rechnung_Veranstaltung_Verein.doc", dt, columnNameList,progressBar2);
 
                
             }

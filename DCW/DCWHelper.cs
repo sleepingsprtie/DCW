@@ -9,9 +9,44 @@ using System.Windows.Forms;
 
 namespace DCW
 {
-    public class DBHelper
+    public class DCWHelper
     {
-
+        public static bool IsDBConnected(string ip,uint port, string database,string userID,string password)
+        {
+            MySqlConnectionStringBuilder connStr = new MySqlConnectionStringBuilder();
+            connStr.Server = ip;
+            connStr.Port = port;  //mysql端口号
+            connStr.Database = database;
+            connStr.UserID = userID;
+            connStr.Password = password;
+            bool result = false;
+            using (MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(connStr.ConnectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    using (MySqlCommand com = new MySqlCommand("SELECT * FROM daten limit 1", conn))
+                    {
+                        com.ExecuteReader();
+                    }
+                    conn.Close();
+                    result = true;
+                }
+                catch
+                {
+                    result = false;
+                }
+            }
+            return result;
+        }
+        public static bool IsDBConnected()
+        {
+            Properties.Settings connset = Properties.Settings.Default;
+            if (DCWHelper.IsDBConnected(connset.IP, Convert.ToUInt32(connset.port), connset.databaseName, connset.userName, connset.password))
+                return true;
+            else
+                return false;
+        }
         /// <summary>
         /// 
         /// </summary>

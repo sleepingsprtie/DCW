@@ -37,30 +37,21 @@ namespace DCW
         }
         private void btn_DBConnectionTest_Click(object sender, EventArgs e)
         {
-            MySqlConnectionStringBuilder connStr = new MySqlConnectionStringBuilder();
-            connStr.Server = this.tb_IP.Text.Trim();
-            connStr.Port = Convert.ToUInt32(this.tb_port.Text.Trim()) ;  //mysql端口号
-            connStr.Database = this.tb_databaseName.Text.Trim();
-            connStr.UserID = this.tb_userName.Text.Trim();
-            connStr.Password = this.tb_password.Text.Trim();
-
-            using (MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(connStr.ConnectionString))
+            if(DCWHelper.IsDBConnected(this.tb_IP.Text.Trim(), 
+                Convert.ToUInt32(this.tb_port.Text.Trim()), 
+                this.tb_databaseName.Text.Trim(), 
+                this.tb_userName.Text.Trim(), 
+                this.tb_password.Text.Trim()))
             {
-                try
-                {
-                    conn.Open();
-                    using (MySqlCommand com = new MySqlCommand("SELECT * FROM daten",conn))
-                    {
-                        com.ExecuteReader();
-                    }                    
-                    conn.Close();
-                    MessageBox.Show("Connection with Database tested OK!", "Info",MessageBoxButtons.OK, MessageBoxIcon.Information );
-                }
-                catch
-                {
-                    MessageBox.Show("Connection with Database is defect!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show("Connection with Database tested OK!", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            else
+            {
+                MessageBox.Show("Connection with Database is defect!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+            
 
         }
 
