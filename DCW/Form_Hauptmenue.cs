@@ -67,26 +67,46 @@ namespace DCW
 
         private void btn_Kartei_Click(object sender, EventArgs e)
         {
-            this.fKartai.Show();
-            this.Hide();
+            if (DCWHelper.IsDBConnected())
+            {
+                this.fKartai.Show();
+                this.Hide();
+            }
+            else
+                MessageBox.Show("Connection with Database is defect!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void btn_Veranstaltungen_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            this.fVeranstaltungen.Show();
+            if (DCWHelper.IsDBConnected())
+            {
+                this.fVeranstaltungen.Show();
+                this.Hide();                
+            }
+            else
+                MessageBox.Show("Connection with Database is defect!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void btn_SetupVerbindung_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            this.fSetupVerbindung.Show();
+            if (DCWHelper.IsDBConnected())
+            {
+                this.fSetupVerbindung.Show();
+                this.Hide();                
+            }
+            else
+                MessageBox.Show("Connection with Database is defect!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void btn_AdministratorLogin_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            this.fAdministraor.Show();
+            if (DCWHelper.IsDBConnected())
+            {
+                this.fAdministraor.Show();
+                this.Hide();                
+            }
+            else
+                MessageBox.Show("Connection with Database is defect!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

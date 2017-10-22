@@ -83,14 +83,14 @@ namespace DCW
                     item.Text = "请选择";
                     item.Value = "";
                     this.dropdownlist.Items.Add(item);
-                    DBHelper helper = new DBHelper();
+                    DCWHelper helper = new DCWHelper();
                     
 
                     for (int i = 0; i < vdt2.Rows.Count; i++)
                     {
                         DataRow tmpRow = vdt2.Rows[i];
                         int Ver_lfd = Convert.ToInt32(tmpRow["Ver_lfd"]);
-                        System.Console.WriteLine(Ver_lfd);
+                        //System.Console.WriteLine(Ver_lfd);
                         item = new ComboboxItem();
                         DateTime datum = tmpRow["Ver_Datum"] is DBNull ? new DateTime(1900,1,1) : Convert.ToDateTime(tmpRow["Ver_Datum"]); 
                         string ort = (tmpRow["Ver_Ort"] as string)??"";
