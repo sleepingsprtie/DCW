@@ -53,7 +53,7 @@ namespace DCW
         {
             Microsoft.Office.Interop.Excel.Application excel = new Microsoft.Office.Interop.Excel.Application();
             excel.Application.Workbooks.Add(true);//引用Excel工作簿 
-            excel.Visible = true; //使Excel可视
+            
             excel.ActiveSheet.Cells[1, 2] = "Name";
             excel.ActiveSheet.Cells[1, 3] = "Vorname";
             excel.ActiveSheet.Cells[1, 4] = "Firma";
@@ -71,6 +71,10 @@ namespace DCW
             dcwDataSetTableAdapters.datenTableAdapter dta = new dcwDataSetTableAdapters.datenTableAdapter();
             dta.Fill(this.dcwDataSet.daten);
             dcwDataSet.datenDataTable daten = dta.GetData();
+
+            progressBar2.Minimum = 0;
+            progressBar2.Maximum = datensatz.Rows.Count - 1;
+            progressBar2.Value = 0;
 
             int zeile = 2;
             for (int i = 0; i < datensatz.Rows.Count; i++)
@@ -137,10 +141,13 @@ namespace DCW
 
                             zeile++;
                         }
+                        
                     }
                 }
+                progressBar2.Value = i;
+                
             }
-
+            
             //*** 格式设置
             Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)excel.Rows[1, Type.Missing];
             myRange.Rows.Insert(Microsoft.Office.Interop.Excel.XlDirection.xlDown, Microsoft.Office.Interop.Excel.XlInsertFormatOrigin.xlFormatFromLeftOrAbove);
@@ -160,7 +167,7 @@ namespace DCW
             //excel.ActiveSheet.PageSetup.FitToPagesWide = 1;
             excel.ActiveSheet.PageSetup.PrintTitleRows = "$1:$3";
             //excel.ActiveSheet.PageSetup.PrintGridlines = "True";
-
+            excel.Visible = true; //使Excel可视
             excel = null;
         }
 
