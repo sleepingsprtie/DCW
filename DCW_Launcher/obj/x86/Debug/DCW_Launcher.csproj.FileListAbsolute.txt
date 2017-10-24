@@ -93,3 +93,15 @@ E:\WorkSpace\CSWorkSpace\DCW\DCW（GYY)\DCW_Launcher\obj\x86\Debug\DCW_Launcher.
 E:\WorkSpace\CSWorkSpace\DCW\DCW（GYY)\DCW_Launcher\obj\x86\Debug\DCW_Launcher.exe
 E:\WorkSpace\CSWorkSpace\DCW\DCW（GYY)\DCW_Launcher\obj\x86\Debug\DCW_Launcher.pdb
 E:\WorkSpace\CSWorkSpace\DCW\DCW（GYY)\DCW_Launcher\obj\x86\Debug\DCW_Launcher.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\bin\Debug\DCW_Launcher.exe.config
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\bin\Debug\DCW_Launcher.exe
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\bin\Debug\DCW_Launcher.pdb
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\bin\Debug\ICSharpCode.SharpZipLib.dll
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\obj\x86\Debug\DCW_Launcher.csprojResolveAssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\obj\x86\Debug\Interop.IWshRuntimeLibrary.dll
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\obj\x86\Debug\DCW_Launcher.csproj.ResolveComReference.cache
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\obj\x86\Debug\DCW_Launcher.Form_main.resources
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\obj\x86\Debug\DCW_Launcher.Properties.Resources.resources
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\obj\x86\Debug\DCW_Launcher.csproj.GenerateResource.Cache
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\obj\x86\Debug\DCW_Launcher.exe
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\obj\x86\Debug\DCW_Launcher.pdb

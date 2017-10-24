@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DCW>
+  <configuration server="ftp://DCW@localhost/" 
+                 path="C:\Users\Administrator\Documents\GitHub\DCW\DCW\bin\Debug"/>
+</DCW>
