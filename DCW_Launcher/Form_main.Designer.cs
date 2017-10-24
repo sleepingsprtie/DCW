@@ -308,6 +308,7 @@
             this.tb_path.Name = "tb_path";
             this.tb_path.Size = new System.Drawing.Size(302, 21);
             this.tb_path.TabIndex = 1;
+            this.tb_path.TextChanged += new System.EventHandler(this.tb_path_TextChanged);
             // 
             // btn_path
             // 

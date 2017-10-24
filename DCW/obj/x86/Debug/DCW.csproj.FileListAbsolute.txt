@@ -346,7 +346,6 @@ C:\Users\Administrator\Documents\GitHub\DCW\DCW\bin\Debug\DCW.exe
 C:\Users\Administrator\Documents\GitHub\DCW\DCW\bin\Debug\DCW.pdb
 C:\Users\Administrator\Documents\GitHub\DCW\DCW\bin\Debug\MySql.Data.dll
 C:\Users\Administrator\Documents\GitHub\DCW\DCW\bin\Debug\MySql.Data.xml
-C:\Users\Administrator\Documents\GitHub\DCW\DCW\obj\x86\Debug\DCW.csprojResolveAssemblyReference.cache
 C:\Users\Administrator\Documents\GitHub\DCW\DCW\obj\x86\Debug\DCW.Befeh1_Suchen.resources
 C:\Users\Administrator\Documents\GitHub\DCW\DCW\obj\x86\Debug\DCW.Data_Modification.resources
 C:\Users\Administrator\Documents\GitHub\DCW\DCW\obj\x86\Debug\DCW.Form_q_daten_fragebogen.resources
