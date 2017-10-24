@@ -39,6 +39,8 @@ namespace DCW
             }
             return result;
         }
+
+
         public static bool IsDBConnected()
         {
             Properties.Settings connset = Properties.Settings.Default;
@@ -46,6 +48,75 @@ namespace DCW
                 return true;
             else
                 return false;
+        }
+
+        public static int DBInsert(string strCmd)
+        {
+            Properties.Settings connset = Properties.Settings.Default;
+            MySqlConnectionStringBuilder connStr = new MySqlConnectionStringBuilder();
+
+            connStr.Server = connset.IP;
+            connStr.Port = Convert.ToUInt32(connset.port);  //mysql端口号
+            connStr.Database = connset.databaseName;
+            connStr.UserID = connset.userName;
+            connStr.Password = connset.password;
+
+            int result = -1;
+            using (MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(connStr.ConnectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    
+                    using (MySqlCommand com = new MySqlCommand(strCmd, conn))
+                    {
+                        result = com.ExecuteNonQuery();
+                    }
+                    conn.Close();
+
+                }
+                catch (Exception e)
+                {
+                    result = -1;
+                }
+            }
+            return result;
+        }
+
+        public static DataTable DBSelect(string strCmd)
+        {
+            Properties.Settings connset = Properties.Settings.Default;
+            MySqlConnectionStringBuilder connStr = new MySqlConnectionStringBuilder();
+
+            connStr.Server = connset.IP;
+            connStr.Port = Convert.ToUInt32(connset.port);  //mysql端口号
+            connStr.Database = connset.databaseName;
+            connStr.UserID = connset.userName;
+            connStr.Password = connset.password;
+
+            DataTable result = new DataTable();
+            using (MySqlConnection conn = new MySql.Data.MySqlClient.MySqlConnection(connStr.ConnectionString))
+            {
+                try
+                {
+                    conn.Open();
+
+                    using (MySqlCommand com = new MySqlCommand(strCmd, conn))
+                    {
+                        using (MySql.Data.MySqlClient.MySqlDataAdapter adapter = new MySql.Data.MySqlClient.MySqlDataAdapter(com))
+                        {
+                            adapter.Fill(result);                         
+                        }
+                    }
+                    conn.Close();
+
+                }
+                catch (Exception e)
+                {
+                    result = null;
+                }
+            }
+            return result;
         }
         /// <summary>
         /// 
@@ -247,9 +318,10 @@ namespace DCW
                     {
                         double Teil_Gesamtbetrag = (row["Teil_Gesamtbetrag"] as double?) ?? 0;
                         Replace(doc, "«Teil_Gesamtbetrag»", Teil_Gesamtbetrag + "");
-                        //*** NOTICE: Daten_Mwst 这个对应数据库的哪个栏位？
-                        int Daten_Mwst = (int)(Teil_Gesamtbetrag * 0.07);
-                        Replace(doc, "«Daten_Mwst»", Daten_Mwst + "");
+                        //*** NOTICE: Daten_Mwst 这个对应数据库的哪个栏位？`Teil_Mwst`
+                        Replace(doc, "«Teil_Gesamtbetrag»", Teil_Gesamtbetrag + "");
+                        float Daten_Mwst = (float)(Teil_Gesamtbetrag * 0.07);
+                        Replace(doc, "«Daten_Mwst»", Daten_Mwst.ToString("f2"));
                         //*** NOTICE: Daten_Gesamtbetrag 这个对应数据库的哪个栏位？
                         Replace(doc, "«Daten_Gesamtbetrag»", "" + (Teil_Gesamtbetrag + Daten_Mwst));
                     }

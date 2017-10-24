@@ -366,3 +366,4 @@ C:\Users\Administrator\Documents\GitHub\DCW\DCW\obj\x86\Debug\DCW.UC_FOUR.resour
 C:\Users\Administrator\Documents\GitHub\DCW\DCW\obj\x86\Debug\DCW.csproj.GenerateResource.Cache
 C:\Users\Administrator\Documents\GitHub\DCW\DCW\obj\x86\Debug\DCW.exe
 C:\Users\Administrator\Documents\GitHub\DCW\DCW\obj\x86\Debug\DCW.pdb
+C:\Users\Administrator\Documents\GitHub\DCW\DCW\obj\x86\Debug\DCW.csprojResolveAssemblyReference.cache

@@ -270,9 +270,12 @@ namespace DCW
         {
             if ((this.dropdownlist.SelectedItem as ComboboxItem).Value == "") { return; }
             int fldValue = Convert.ToInt32((this.dropdownlist.SelectedItem as ComboboxItem).Value);
-            DataTable table = this.veranstaltungenTableAdapter.GetData();
-            DataRow tmpRow = table.Rows.Find(fldValue);
-
+            DataRow tmpRow = null;
+            using (DataTable table = this.veranstaltungenTableAdapter.GetData())
+            {
+                tmpRow = table.Rows.Find(fldValue);
+            }
+            
             if (tmpRow != null)
             {
                 StringBuilder sb = new StringBuilder();
@@ -295,32 +298,44 @@ namespace DCW
                 sb.AppendFormat("N'{0}', ", tmpRow["Ver_Ort"]);
 
                 string tmp_Art_Datensatz = this.daten_Art_DatensatzTextBox.Text;
-                double VPreism = 0;
+                double VPreism = 0;//会员价
                 if (tmpRow["Ver_Preis_Mitglied"] != DBNull.Value)
                 {
                     VPreism = Convert.ToDouble(tmpRow["Ver_Preis_Mitglied"]);
                 }
-                double VPreisn = 0;
+                double VPreisn = 0;//非会员价
                 if (tmpRow["Ver_Preis_Nichtmitglied"] != DBNull.Value)
                 {
                     VPreisn = Convert.ToDouble(tmpRow["Ver_Preis_Nichtmitglied"]);
                 }
                 bool flg = true;
+                //Art_Datensatz:
+                //Nicht - Mitglied
+                //DCW - Mitglied
+                //DCW - Mitglied 2
+                //Ehemaliges Mitglied
+
+
+                //Nicht - Mitglied
                 if (tmp_Art_Datensatz == "Nicht-Mitglied")
                 {
                     flg = false;
-                    sb.AppendFormat("{0}, ", (VPreisn / 107 * 100));
-                    sb.AppendFormat("{0}, ", (VPreisn / 107 * 7));
+                    sb.AppendFormat("{0}, ", (VPreisn / 107 * 100));//推算税前价格
+                    sb.AppendFormat("{0}, ", (VPreisn / 107 * 7));//推算税额
                     sb.AppendFormat("{0}, ", VPreisn);
                 }
-
+                //DCW - Mitglied
+                //DCW - Mitglied 2
                 if (tmp_Art_Datensatz.StartsWith("DCW"))
                 {
                     flg = false;
-                    sb.AppendFormat("{0}, ", (VPreism / 107 * 100));
-                    sb.AppendFormat("{0}, ", (VPreism / 107 * 7));
+                    sb.AppendFormat("{0}, ", (VPreism / 107 * 100));//推算税前价格
+                    sb.AppendFormat("{0}, ", (VPreism / 107 * 7));//推算税额
                     sb.AppendFormat("{0}, ", VPreism);
                 }
+                //这个不对吧，不能为0吧？、、、、、、、、、、、、、、、、、、、、？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？？
+                //Ehemaliges Mitglied
+                //others
                 if (flg)
                 {
                     sb.AppendFormat("{0}, ", 0 );
@@ -333,38 +348,27 @@ namespace DCW
 
                 sb.Append(" )");
 
-                DataTable param = new DataTable();
-                this.teilnehmerveranstaltungTableAdapter.Connection.Open();
-                try
+                
+                if(DCWHelper.DBInsert(sb.ToString())>0)
                 {
-                    using (MySql.Data.MySqlClient.MySqlCommand insertData = new MySql.Data.MySqlClient.MySqlCommand(sb.ToString(), this.teilnehmerveranstaltungTableAdapter.Connection))
-                    {
-                        insertData.ExecuteNonQuery();
-                    }
-
                     MessageBox.Show("Insert TeilnehmerVeranstaltung Success!");
                 }
-                catch (Exception ex)
+                else
                 {
-                    MessageBox.Show("Insert TeilnehmerVeranstaltung Failure! " + ex.Message);
-                }
-                finally
-                {
-                    string strSQL = "SELECT * FROM teilnehmerveranstaltung ORDER BY Teil_lfd DESC LIMIT 1;";
-
-                    using (MySql.Data.MySqlClient.MySqlCommand selectData = new MySql.Data.MySqlClient.MySqlCommand(strSQL, this.teilnehmerveranstaltungTableAdapter.Connection))
-                    {
-                        using (MySql.Data.MySqlClient.MySqlDataAdapter adapter = new MySql.Data.MySqlClient.MySqlDataAdapter(selectData))
-                        {
-                            adapter.Fill(param);
-                        }
-                    }
-
-                    this.teilnehmerveranstaltungTableAdapter.Connection.Close();
+                    MessageBox.Show("Insert TeilnehmerVeranstaltung Failure! " );
                 }
 
-                this.teilnehmerveranstaltungTableAdapter.Fill(this.dcwDataSet.teilnehmerveranstaltung);
-                this.createForm(param.Rows[0]);
+                
+                string strSQL = "SELECT * FROM teilnehmerveranstaltung ORDER BY Teil_lfd DESC LIMIT 1;";
+                DataTable param = DCWHelper.DBSelect(strSQL);
+                if (param!=null)
+                {
+                    this.teilnehmerveranstaltungTableAdapter.Fill(this.dcwDataSet.teilnehmerveranstaltung);
+                    this.createForm(param.Rows[0]);
+                }
+                    
+                
+
             }
         }
 
