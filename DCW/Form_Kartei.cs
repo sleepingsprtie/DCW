@@ -280,7 +280,7 @@ namespace DCW
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("INSERT INTO TeilnehmerVeranstaltung(Teil_TeilnehmerMgl, Teil_Veranstaltunglfd, Teil_Veranstaltung_Titel, Teil_Veranstaltung_Datum, Teil_Veranstaltung_Ort, ");
-                sb.Append(" Teil_Gebuehr, Teil_Mwst, Teil_Gesamtbetrag, Teil_Anmeldung_Datum, Teil_Essen ");
+                sb.Append(" Teil_Gebuehr, Teil_Mwst, Teil_Gesamtbetrag, Teil_Anmeldung_Datum, Teil_Essen,Teil_Rechtzeitig_Abmeldung ");
                 sb.Append(" )VALUES ( ");
                 sb.AppendFormat("{0}, ", Convert.ToInt32(this.daten_MitgliedsnummerTextBox.Text));
                 sb.AppendFormat("{0}, ", fldValue);
@@ -344,14 +344,21 @@ namespace DCW
                 }
                 string nowDate = String.Format("{0:yyyy-MM-dd hh:MM:ss}", DateTime.Now);
                 sb.AppendFormat("N'{0}', ", nowDate);
-                sb.AppendFormat("{0} ", 1);
-
+                sb.AppendFormat("{0}, ", 1);
+                sb.AppendFormat("{0} ", 0);
                 sb.Append(" )");
 
                 
                 if(DCWHelper.DBInsert(sb.ToString())>0)
                 {
                     MessageBox.Show("Insert TeilnehmerVeranstaltung Success!");
+                    string strSQL = "SELECT * FROM teilnehmerveranstaltung ORDER BY Teil_lfd DESC LIMIT 1;";
+                    DataTable param = DCWHelper.DBSelect(strSQL);
+                    if (param != null)
+                    {
+                        this.teilnehmerveranstaltungTableAdapter.Fill(this.dcwDataSet.teilnehmerveranstaltung);
+                        this.createForm(param.Rows[0]);
+                    }
                 }
                 else
                 {
@@ -359,13 +366,7 @@ namespace DCW
                 }
 
                 
-                string strSQL = "SELECT * FROM teilnehmerveranstaltung ORDER BY Teil_lfd DESC LIMIT 1;";
-                DataTable param = DCWHelper.DBSelect(strSQL);
-                if (param!=null)
-                {
-                    this.teilnehmerveranstaltungTableAdapter.Fill(this.dcwDataSet.teilnehmerveranstaltung);
-                    this.createForm(param.Rows[0]);
-                }
+               
                     
                 
 
