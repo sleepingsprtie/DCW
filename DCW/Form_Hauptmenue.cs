@@ -34,7 +34,10 @@ namespace DCW
             {
                 this.fSetupVerbindung = new Form_SetupVerbindung(this);
             }
-            catch { }
+            catch
+            {
+
+            }
             try
             {
                 this.fAdministraor = new Form_Administrator(this);
@@ -89,13 +92,10 @@ namespace DCW
 
         private void btn_SetupVerbindung_Click(object sender, EventArgs e)
         {
-            if (DCWHelper.IsDBConnected())
-            {
+            
                 this.fSetupVerbindung.Show();
                 this.Hide();                
-            }
-            else
-                MessageBox.Show("Connection with Database is defect!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+          
         }
 
         private void btn_AdministratorLogin_Click(object sender, EventArgs e)

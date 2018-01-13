@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <DCW>
   <configuration version="2015.03.19.09" />
+  <database IP="127.0.0.1" port="3306" userName="root" password="123123" databaseName="dcw" />
+
 </DCW>

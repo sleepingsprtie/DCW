@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.Xml;
 
 namespace DCW
 {
@@ -18,6 +19,34 @@ namespace DCW
         public Form_SetupVerbindung(Form fHauptmenu)
         {
             InitializeComponent();
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load("config.xml");
+            if (doc != null)
+            {
+                //分析文件  
+                XmlNode node = doc.SelectSingleNode("//DCW/database");
+                if (node != null)
+                {
+                    connset.IP = node.Attributes["IP"].InnerText.Trim();
+                    connset.port = node.Attributes["port"].InnerText.Trim();
+                    connset.userName = node.Attributes["userName"].InnerText.Trim();
+                    connset.password = node.Attributes["password"].InnerText.Trim();
+                    connset.databaseName = node.Attributes["databaseName"].InnerText.Trim();
+                    connset.Save();
+                }
+                else
+                {
+                    MessageBox.Show("DCW.xml is defect", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Can't get local config.xml", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+
+
             this.fHauptmenu = fHauptmenu;
             this.tb_IP.Text = connset.IP;
             this.tb_port.Text = connset.port;
@@ -66,6 +95,32 @@ namespace DCW
             connset.MysqlConnectionString = "server=" + connset.IP + ";user id=" + connset.userName + ";password=" + connset.password + ";persistsecurityinfo=True;database=" + connset.databaseName + "";
             //Properties.Settings.Default.SetConnectionString("server=mysql.w3.sqlkunden.de;user id=m_wei_dcw;password=Koeln@2015;persistsecurityinfo=True;database=m_wei_dcw");
             connset.Save();
+
+            XmlDocument doc = new XmlDocument();
+            doc.Load("config.xml");
+            if (doc != null)
+            {
+                //分析文件  
+                XmlNode node = doc.SelectSingleNode("//DCW/database");
+                if (node != null)
+                {
+                    node.Attributes["IP"].InnerText=connset.IP;
+                    node.Attributes["port"].InnerText=connset.port;
+                    node.Attributes["userName"].InnerText=connset.userName;
+                    node.Attributes["password"].InnerText=connset.password;
+                    node.Attributes["databaseName"].InnerText=connset.databaseName;
+                    doc.Save("config.xml");
+                }
+                else
+                {
+                    MessageBox.Show("DCW.xml is defect", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Can't get local config.xml", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
         }
 
         private void btn_cancel_Click(object sender, EventArgs e)

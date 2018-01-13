@@ -1,0 +1,11 @@
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\bin\Release\DCW_Launcher.exe.config
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\bin\Release\DCW_Launcher.exe
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\bin\Release\DCW_Launcher.pdb
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\bin\Release\ICSharpCode.SharpZipLib.dll
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\obj\x86\Release\Interop.IWshRuntimeLibrary.dll
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\obj\x86\Release\DCW_Launcher.csproj.ResolveComReference.cache
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\obj\x86\Release\DCW_Launcher.Form_main.resources
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\obj\x86\Release\DCW_Launcher.Properties.Resources.resources
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\obj\x86\Release\DCW_Launcher.csproj.GenerateResource.Cache
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\obj\x86\Release\DCW_Launcher.exe
+C:\Users\Administrator\Documents\GitHub\DCW\DCW_Launcher\obj\x86\Release\DCW_Launcher.pdb

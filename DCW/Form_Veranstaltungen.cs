@@ -153,20 +153,17 @@ namespace DCW
             myRange.Rows.Insert(Microsoft.Office.Interop.Excel.XlDirection.xlDown, Microsoft.Office.Interop.Excel.XlInsertFormatOrigin.xlFormatFromLeftOrAbove);
             myRange.Rows.Insert(Microsoft.Office.Interop.Excel.XlDirection.xlDown, Microsoft.Office.Interop.Excel.XlInsertFormatOrigin.xlFormatFromLeftOrAbove);
 
-            excel.ActiveSheet.Rows[3].Font.Bold = "True";
+            //excel.ActiveSheet.Rows[3].Font.Bold = "True";
 
             Microsoft.Office.Interop.Excel.Range allRange = excel.Columns;
             allRange.AutoFit();
 
             excel.ActiveSheet.Cells[1, 1] = "Teilnehmerliste Veranstaltung " + this.ver_TitelTextBox.Text;
-            excel.Cells[1, 1].Font.Bold = "True";
+            //excel.Cells[1, 1].Font.Bold = "True";
             excel.Cells[1, 1].Font.Size = 14;
 
             excel.ActiveSheet.PageSetup.PrintArea = "$A$1:$G$" + (zeile + 2);
-            //excel.ActiveSheet.PageSetup.Orientation = Microsoft.Office.Interop.Excel.XlPageOrientation.xlLandscape;
-            //excel.ActiveSheet.PageSetup.FitToPagesWide = 1;
             excel.ActiveSheet.PageSetup.PrintTitleRows = "$1:$3";
-            //excel.ActiveSheet.PageSetup.PrintGridlines = "True";
             excel.Visible = true; //使Excel可视
             excel = null;
         }

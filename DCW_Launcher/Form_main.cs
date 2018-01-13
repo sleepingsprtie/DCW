@@ -52,9 +52,10 @@ namespace DCW_Launcher
                 MessageBox.Show("Can't get local laucher_config.xml", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             string configURL = string.Format("{0}\\DCW\\config.xml", Application.StartupPath);
-            doc.Load(configURL);
+            
             if (System.IO.File.Exists(configURL))
             {
+                doc.Load(configURL);
                 //分析文件
                 XmlNode node = doc.SelectSingleNode("//DCW/configuration");
                 if (node != null)
@@ -129,7 +130,7 @@ namespace DCW_Launcher
         private void btn_save_Click(object sender, EventArgs e)
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load("config.xml");
+            doc.Load("launcher_config.xml");
             if (doc != null)
             {
                 //分析文件  
@@ -138,7 +139,7 @@ namespace DCW_Launcher
                 {
                     this.server = this.tb_server.Text.Trim();
                     node.Attributes["server"].InnerText = this.server;                    
-                    doc.Save("config.xml");
+                    doc.Save("launcher_config.xml");
                 }
                 else
                 {
@@ -196,7 +197,7 @@ namespace DCW_Launcher
                 FtpWebResponse ftpResponse = null;
                 Stream ftpStream = null;
                 ftpRequest = (FtpWebRequest)FtpWebRequest.Create(uri);
-                ftpRequest.Credentials = new NetworkCredential("DCW", "");
+                ftpRequest.Credentials = new NetworkCredential("anonymous", "");
                 ftpRequest.UseBinary = true;
                 ftpRequest.UsePassive = true;
                 ftpRequest.KeepAlive = true;
